@@ -2,7 +2,7 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 
-const page = () => {
+const Checkout = () => {
   const dispatch = useAppDispatch();
   const totalPayableAmount = useAppSelector(
     (state) => state.checkoutReducer.totalPayableAmount
@@ -10,4 +10,4 @@ const page = () => {
   return <div>Hello World! please pay {totalPayableAmount}</div>;
 };
 
-export default page;
+export default Checkout;

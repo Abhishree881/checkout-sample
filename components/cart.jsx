@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 const Cart = () => {
   const isFirstLoad = useRef(true);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
   const [expandedIndices, setExpandedIndices] = useState([]);
   const [activeDiscount, setActiveDiscount] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,9 +68,10 @@ const Cart = () => {
 
   const handleFetch = async () => {
     setLoading(true);
+    const cacheMethod = refresh ? "no-store" : "force-cache";
     await fetch(
       `https://groww-intern-assignment.vercel.app/v1/api/order-details`,
-      { cache: "force-cache" } // no-store
+      { cache: cacheMethod }
     )
       .then((response) => {
         if (!response.ok) {
