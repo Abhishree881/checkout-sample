@@ -16,6 +16,8 @@ import { IoMdArrowForward } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import Modal from "./modal";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const Cart = () => {
   const isFirstLoad = useRef(true);
@@ -24,6 +26,7 @@ const Cart = () => {
   const [activeDiscount, setActiveDiscount] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageSrc, setSelectedImageSrc] = useState("");
+  const router = useRouter();
 
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector(
@@ -45,8 +48,12 @@ const Cart = () => {
 
   useEffect(() => {
     if (isFirstLoad.current) {
-      handleFetch();
-      isFirstLoad.current = false;
+      if (cartProducts.length === 0) {
+        handleFetch();
+        isFirstLoad.current = false;
+      } else {
+        setLoading(false);
+      }
     }
   }, []);
 
@@ -62,7 +69,7 @@ const Cart = () => {
     setLoading(true);
     await fetch(
       `https://groww-intern-assignment.vercel.app/v1/api/order-details`,
-      { cache: "no-store" } //force-cache
+      { cache: "force-cache" } // no-store
     )
       .then((response) => {
         if (!response.ok) {
@@ -138,10 +145,27 @@ const Cart = () => {
     setSelectedImageSrc("");
   };
 
+  const handleCheckoutCLick = () => {
+    if (totalPayableAmount === 0) {
+      toast.error(
+        "Oops! Shopping Basket is empty, please add some products :)",
+        {
+          style: {
+            backgroundColor: "rgb(250,24,34,0.3)",
+            color: "white",
+          },
+        }
+      );
+    } else {
+      router.push("/payment");
+    }
+  };
+
   return loading ? (
     <div className="loader"></div>
   ) : (
     <div className="container">
+      <Toaster toastOptions={{ duration: 4000 }} />
       <div className="cartSide">
         <div className="goBack">
           <IoMdArrowBack />
@@ -156,80 +180,96 @@ const Cart = () => {
             <>{cartProducts.length !== 1 ? "s" : ""}</>
             {" in your cart"}
           </p>
-          {cartProducts.map((item, index) => {
-            return (
-              <div className="cartCard" key={item.id}>
-                <div className="cartItemImageBox">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    className="cartItemImage"
-                    width={60}
-                    height={50}
-                    placeholder="blur"
-                    loading="lazy"
-                    blurDataURL="/placeholder.jpeg"
-                    onClick={() => handleImageClick(item.image)}
-                  ></Image>
-                </div>
-                <div className="itemDetails">
-                  <div className="itemInfo">
-                    <div>
-                      {expandedIndices.includes(index) ? (
-                        <div className="itemTitleExpanded">
-                          {item.title}
-                          <span
-                            className="titleExpand"
-                            onClick={() => toggleExpanded(index)}
-                          >
-                            {" show less"}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="itemTitle">
-                          {item.title.slice(0, 25)}
-                          {item.title.length > 15 && (
+          {cartProducts.length === 0 ? (
+            <div className="emptyCart">
+              <Image
+                width={250}
+                height={250}
+                src="/emptyCart.png"
+                alt="Empty Cart"
+              />
+              <spa>Your Basket is Empty!</spa>
+            </div>
+          ) : (
+            cartProducts.map((item, index) => {
+              return (
+                <div className="cartCard" key={item.id}>
+                  <div className="cartItemImageBox">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      className="cartItemImage"
+                      width={60}
+                      height={50}
+                      placeholder="blur"
+                      loading="lazy"
+                      blurDataURL="/placeholder.jpeg"
+                      onClick={() => handleImageClick(item.image)}
+                    ></Image>
+                  </div>
+                  <div className="itemDetails">
+                    <div className="itemInfo">
+                      <div>
+                        {expandedIndices.includes(index) ? (
+                          <div className="itemTitleExpanded">
+                            {item.title}
                             <span
                               className="titleExpand"
                               onClick={() => toggleExpanded(index)}
                             >
-                              {"... show more"}
+                              {" show less"}
                             </span>
-                          )}
+                          </div>
+                        ) : (
+                          <div className="itemTitle">
+                            {item.title.slice(0, 25)}
+                            {item.title.length > 15 && (
+                              <span
+                                className="titleExpand"
+                                onClick={() => toggleExpanded(index)}
+                              >
+                                {"... show more"}
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      <span className="itemPrice">{item.price}</span>
+                    </div>
+                    <div className="itemInteractions">
+                      <div className="itemQuantityChange">
+                        <div
+                          onClick={() => handleIncreaseQuantity(item.id)}
+                          className="quantityChange"
+                        >
+                          <FiPlus />
                         </div>
-                      )}
-                    </div>
-                    <span className="itemPrice">{item.price}</span>
-                  </div>
-                  <div className="itemInteractions">
-                    <div className="itemQuantityChange">
-                      <div
-                        onClick={() => handleIncreaseQuantity(item.id)}
-                        className="quantityChange"
-                      >
-                        <FiPlus />
+                        <div className="quantity">{item.quantity}</div>
+                        <div
+                          onClick={() => handleDecreaseQuantity(item.id)}
+                          className="quantityChange"
+                        >
+                          <FiMinus />
+                        </div>
                       </div>
-                      <div className="quantity">{item.quantity}</div>
                       <div
-                        onClick={() => handleDecreaseQuantity(item.id)}
-                        className="quantityChange"
+                        onClick={() =>
+                          handleRemoveProduct(
+                            item.id,
+                            item.price,
+                            item.quantity
+                          )
+                        }
+                        className="deleteItem"
                       >
-                        <FiMinus />
+                        Remove Item
                       </div>
-                    </div>
-                    <div
-                      onClick={() =>
-                        handleRemoveProduct(item.id, item.price, item.quantity)
-                      }
-                      className="deleteItem"
-                    >
-                      Remove Item
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </div>
       <div className="orderSummary">
@@ -322,7 +362,7 @@ const Cart = () => {
           </div>
         </div>
         <div className="checkoutSection">
-          <button className="checkoutButton">
+          <button onClick={handleCheckoutCLick} className="checkoutButton">
             <span>{totalPayableAmount.toFixed(2)}</span>
             <span className="buttonCheckout">
               Checkout Now <IoMdArrowForward />
