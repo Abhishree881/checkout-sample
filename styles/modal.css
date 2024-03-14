@@ -1,0 +1,28 @@
+.modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content img {
+    max-height: 70vh;
+    max-width: 70vw;
+}

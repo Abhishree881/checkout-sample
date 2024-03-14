@@ -66,6 +66,7 @@
 .cartItemImage {
     background-color: rgb(200, 206, 214, 0.3);
     mix-blend-mode: multiply;
+    cursor: pointer;
 }
 
 .itemDetails {
@@ -170,6 +171,7 @@
 .couponOptions {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 80%;
     margin: 10px auto;
     flex: 1;
@@ -177,10 +179,13 @@
     padding-bottom: 20px;
 }
 
+.discountCouponContainer {
+    position: relative;
+}
+
 .discountCoupon {
-    border: 1px dashed white;
+    border: 1px solid white;
     border-radius: 10px;
-    width: 100%;
     aspect-ratio: 1/1;
     display: flex;
     align-items: center;
@@ -190,12 +195,41 @@
     cursor: pointer;
 }
 
-.discountCoupon:hover {
+/* .discountCouponContainer:hover .discountCoupon {
     border: 1px solid white;
+} */
+
+.couponOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.discountCouponContainer:hover .couponOverlay {
+    opacity: 1;
+}
+
+.couponText {
+    color: white;
+    font-size: 13px;
 }
 
 .activeDiscount {
-    border: 1px solid white;
+    border: 2px solid rgb(237, 178, 100);
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.8);
 }
 
 .checkoutAmount {

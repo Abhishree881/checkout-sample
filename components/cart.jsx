@@ -15,12 +15,16 @@ import { IoMdArrowBack } from "react-icons/io";
 import { IoMdArrowForward } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
+import Modal from "./modal";
 
 const Cart = () => {
   const isFirstLoad = useRef(true);
   const [loading, setLoading] = useState(true);
   const [expandedIndices, setExpandedIndices] = useState([]);
   const [activeDiscount, setActiveDiscount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImageSrc, setSelectedImageSrc] = useState("");
+
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector(
     (state) => state.checkoutReducer.cartProducts
@@ -124,6 +128,16 @@ const Cart = () => {
     }
   };
 
+  const handleImageClick = (imageSrc) => {
+    setSelectedImageSrc(imageSrc);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedImageSrc("");
+  };
+
   return loading ? (
     <div className="loader"></div>
   ) : (
@@ -155,6 +169,7 @@ const Cart = () => {
                     placeholder="blur"
                     loading="lazy"
                     blurDataURL="/placeholder.jpeg"
+                    onClick={() => handleImageClick(item.image)}
                   ></Image>
                 </div>
                 <div className="itemDetails">
@@ -223,42 +238,66 @@ const Cart = () => {
           <div className="coupons">
             <span className="couponHeader">Coupons</span>
             <div className="couponOptions">
-              <span
-                className={
-                  activeDiscount === 20
-                    ? "activeDiscount discountCoupon"
-                    : "discountCoupon"
-                }
-                onClick={() => {
-                  handle20OffDiscount(totalRawAmount);
-                }}
-              >
-                20% off
-              </span>
-              <span
-                className={
-                  activeDiscount === 25
-                    ? "activeDiscount discountCoupon"
-                    : " discountCoupon"
-                }
-                onClick={() => {
-                  handle25OffDiscount(totalRawAmount);
-                }}
-              >
-                25% off upto 100
-              </span>
-              <span
-                className={
-                  activeDiscount === 50
-                    ? "activeDiscount discountCoupon"
-                    : "discountCoupon"
-                }
-                onClick={() => {
-                  handle50OffDiscount(totalRawAmount);
-                }}
-              >
-                50% off upto 80
-              </span>
+              <div className="discountCouponContainer">
+                <Image
+                  src="/20Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 20
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle20OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">20% off</span>
+                </div>
+              </div>
+              <div className="discountCouponContainer">
+                <Image
+                  src="/25Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 25
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle25OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">25% off upto 100</span>
+                </div>
+              </div>
+              <div className="discountCouponContainer">
+                <Image
+                  src="/50Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 50
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle50OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">50% off upto 80</span>
+                </div>
+              </div>
             </div>
           </div>
           <div className="checkoutAmount">
@@ -291,6 +330,11 @@ const Cart = () => {
           </button>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        imageSrc={selectedImageSrc}
+      />
     </div>
   );
 };
