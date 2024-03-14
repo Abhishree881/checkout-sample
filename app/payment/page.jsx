@@ -68,8 +68,13 @@ const Payments = () => {
       setDisable(true);
       if (paymentType === "UPI") {
         dispatch(addUpiDetails(upiId));
+        setCardNumber("");
+        setCvv("");
+        setExpiry("");
+        setName("");
       } else {
         dispatch(addCardDetails({ cardNumber, cardCvv, expiry, name }));
+        setUpiId("");
       }
       toast.success("Details filled succesfully");
     }
@@ -110,10 +115,10 @@ const Payments = () => {
                   className="paymentsCard"
                   onClick={() => {
                     handlePaymentSelect(item);
-                    // if (paymentType !== item) {
-                    //   setDisable(false);
-                    //   dispatch(addDisable(false));
-                    // }
+                    if (paymentType !== item) {
+                      setDisable(false);
+                      dispatch(addDisable(false));
+                    }
                   }}
                 >
                   <div className="paymentsDetails">
@@ -152,7 +157,10 @@ const Payments = () => {
                         />
                         <button
                           className="paymentTypeConfirm"
-                          onClick={handleConfirm}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConfirm();
+                          }}
                           disabled={disable}
                           style={{
                             cursor: disable ? "not-allowed" : "pointer",
@@ -197,7 +205,10 @@ const Payments = () => {
                         />
                         <button
                           className="paymentTypeConfirm"
-                          onClick={handleConfirm}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleConfirm();
+                          }}
                           disabled={disable}
                           style={{
                             cursor: disable ? "not-allowed" : "pointer",
