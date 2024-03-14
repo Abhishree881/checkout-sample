@@ -1,7 +1,19 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
+import { Poppins, Quicksand, Montserrat } from "next/font/google";
+import "@/app/globals.scss";
+import StoreProvider from "@/app/StoreProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata = {
   title: "InstaPayments",
@@ -11,7 +23,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={montserrat.className}>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

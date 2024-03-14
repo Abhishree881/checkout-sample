@@ -1,0 +1,14 @@
+.main {
+    height: calc(100vh - 10vw);
+    width: 90vw;
+    margin: 5vw auto;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 0 5px rgba(142, 144, 144, 0.3);
+}
+
+.main::-webkit-scrollbar {
+    display: none;
+}
