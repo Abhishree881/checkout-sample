@@ -8,16 +8,22 @@ import { IoMdArrowBack } from "react-icons/io";
 import Link from "next/link";
 import IconComponent from "@/components/iconComponent";
 import { CiCircleChevDown } from "react-icons/ci";
+import { CiCircleChevUp } from "react-icons/ci";
 import { updatePaymentType } from "@/lib/features/cart/checkoutReducer";
 import toast, { Toaster } from "react-hot-toast";
+import {
+  addCardDetails,
+  addDisable,
+  addUpiDetails,
+} from "@/lib/features/payment/paymentReducer";
 
 const Payments = () => {
   const [loading, setLoading] = useState(true);
-  const [upiId, setUpiId] = useState(null);
-  const [cardNumber, setCardNumber] = useState(null);
-  const [cvv, setCvv] = useState(null);
-  const [expiry, setExpiry] = useState(null);
-  const [name, setName] = useState(null);
+  const [upiId, setUpiId] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardCvv, setCvv] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [name, setName] = useState("");
   const [disable, setDisable] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -30,23 +36,41 @@ const Payments = () => {
   const paymentType = useAppSelector(
     (state) => state.checkoutReducer.paymentType
   );
+  const reduxUpi = useAppSelector((state) => state.paymentReducer.upiId);
+  const reduxDisable = useAppSelector((state) => state.paymentReducer.disable);
+
+  useEffect(() => {
+    setDisable(reduxDisable);
+  });
 
   const handlePaymentSelect = (type) => {
     dispatch(updatePaymentType(type));
   };
 
   const handleConfirm = () => {
-    if (paymentType === "UPI" && upiId === null) {
+    if (paymentType === "UPI" && upiId.length === 0) {
       toast.error("Please enter all the details");
     } else if (
-      cardNumber === null ||
-      cvv === null ||
-      expiry === null ||
-      name === null
+      paymentType === "CARDS" &&
+      (cardNumber.length === 0 ||
+        cardCvv.length === 0 ||
+        expiry.length === 0 ||
+        name.length === 0)
     ) {
       toast.error("Please enter all the details");
+    } else if (paymentType === "UPI" && upiId.length < 10) {
+      toast.error("Upi Id or Mobile Number should be atleast 10 digit long");
+    } else if (paymentType === "CARDS" && cardNumber.length !== 16) {
+      toast.error("Card Number should be only 16 digits long");
+    } else if (paymentType === "CARDS" && cardCvv.length !== 3) {
+      toast.error("CVV should be only 3 digits long");
     } else {
       setDisable(true);
+      if (paymentType === "UPI") {
+        dispatch(addUpiDetails(upiId));
+      } else {
+        dispatch(addCardDetails({ cardNumber, cardCvv, expiry, name }));
+      }
       toast.success("Details filled succesfully");
     }
   };
@@ -84,7 +108,13 @@ const Payments = () => {
                 <div
                   key={index}
                   className="paymentsCard"
-                  onClick={() => handlePaymentSelect(item)}
+                  onClick={() => {
+                    handlePaymentSelect(item);
+                    // if (paymentType !== item) {
+                    //   setDisable(false);
+                    //   dispatch(addDisable(false));
+                    // }
+                  }}
                 >
                   <div className="paymentsDetails">
                     <div className="paymentsInfo">
@@ -94,9 +124,19 @@ const Payments = () => {
                       <span className="paymentsType">{item}</span>
                     </div>
                     <div>
-                      <CiCircleChevDown
-                        style={{ fontSize: "20px", fontWeight: "600" }}
-                      />
+                      {paymentType === item ? (
+                        <CiCircleChevUp
+                          style={{ fontSize: "20px", fontWeight: "600" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handlePaymentSelect(null);
+                          }}
+                        />
+                      ) : (
+                        <CiCircleChevDown
+                          style={{ fontSize: "20px", fontWeight: "600" }}
+                        />
+                      )}
                     </div>
                   </div>
                   {paymentType === item &&
@@ -105,14 +145,18 @@ const Payments = () => {
                         <input
                           className="paymentTypeSets"
                           type="text"
-                          placeholder="Enter you mobile no./ upi id"
+                          placeholder="Enter your mobile number / upi id"
                           onChange={(e) => setUpiId(e.target.value)}
                           disabled={disable}
-                          value={upiId}
+                          value={reduxUpi ? reduxUpi : upiId}
                         />
                         <button
                           className="paymentTypeConfirm"
                           onClick={handleConfirm}
+                          disabled={disable}
+                          style={{
+                            cursor: disable ? "not-allowed" : "pointer",
+                          }}
                         >
                           Confirm
                         </button>
@@ -133,7 +177,7 @@ const Payments = () => {
                           placeholder="Enter your card cvv"
                           onChange={(e) => setCvv(e.target.value)}
                           disabled={disable}
-                          value={cvv}
+                          value={cardCvv}
                         />
                         <input
                           className="paymentTypeSets"
@@ -154,6 +198,10 @@ const Payments = () => {
                         <button
                           className="paymentTypeConfirm"
                           onClick={handleConfirm}
+                          disabled={disable}
+                          style={{
+                            cursor: disable ? "not-allowed" : "pointer",
+                          }}
                         >
                           Confirm
                         </button>
