@@ -8,8 +8,9 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { IoMdArrowForward } from "react-icons/io";
 import "@/styles/ordersummary.css";
+import IconComponent from "./iconComponent";
 
-const OrderSummary = ({ type }) => {
+const OrderSummary = ({ type, check }) => {
   const [activeDiscount, setActiveDiscount] = useState(0);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -23,6 +24,9 @@ const OrderSummary = ({ type }) => {
   );
   const totalPayableAmount = useAppSelector(
     (state) => state.checkoutReducer.totalPayableAmount
+  );
+  const paymentType = useAppSelector(
+    (state) => state.checkoutReducer.paymentType
   );
 
   const handle20OffDiscount = (price) => {
@@ -61,18 +65,20 @@ const OrderSummary = ({ type }) => {
   };
 
   const handleCheckoutCLick = () => {
-    if (totalPayableAmount === 0) {
-      toast.error(
-        "Oops! Shopping Basket is empty, please add some products :)",
-        {
-          style: {
-            backgroundColor: "rgb(250,24,34,0.3)",
-            color: "white",
-          },
-        }
-      );
+    if (type === "checkout") {
+      if (totalPayableAmount === 0) {
+        toast.error(
+          "Oops! Shopping Basket is empty, please add some products :)"
+        );
+      } else {
+        router.push("/payment");
+      }
     } else {
-      router.push("/payment");
+      if (!check) {
+        toast.error("Oops! Please select a payment method :)");
+      } else {
+        router.push("/confirmation");
+      }
     }
   };
 
@@ -81,69 +87,78 @@ const OrderSummary = ({ type }) => {
       <h2>Order Summary</h2>
       <div className="amountSection">
         <div className="coupons">
-          <span className="couponHeader">Coupons</span>
-          <div className="couponOptions">
-            <div className="discountCouponContainer">
-              <Image
-                src="/20Off.jpeg"
-                width={100}
-                height={100}
-                className={
-                  activeDiscount === 20
-                    ? "activeDiscount discountCoupon"
-                    : "discountCoupon"
-                }
-              />
-              <div
-                onClick={() => {
-                  handle20OffDiscount(totalRawAmount);
-                }}
-                className="couponOverlay"
-              >
-                <span className="couponText">20% off</span>
+          <span className="couponHeader">
+            {type === "confirmation" ? "Payment Method" : "Coupons"}
+          </span>
+          {type === "confirmation" ? (
+            <div className="paymentMethod">
+              <IconComponent keyword={paymentType} />
+              <span>{paymentType}</span>
+            </div>
+          ) : (
+            <div className="couponOptions">
+              <div className="discountCouponContainer">
+                <Image
+                  src="/20Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 20
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle20OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">20% off</span>
+                </div>
+              </div>
+              <div className="discountCouponContainer">
+                <Image
+                  src="/25Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 25
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle25OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">25% off upto 100</span>
+                </div>
+              </div>
+              <div className="discountCouponContainer">
+                <Image
+                  src="/50Off.jpeg"
+                  width={100}
+                  height={100}
+                  className={
+                    activeDiscount === 50
+                      ? "activeDiscount discountCoupon"
+                      : "discountCoupon"
+                  }
+                />
+                <div
+                  onClick={() => {
+                    handle50OffDiscount(totalRawAmount);
+                  }}
+                  className="couponOverlay"
+                >
+                  <span className="couponText">50% off upto 80</span>
+                </div>
               </div>
             </div>
-            <div className="discountCouponContainer">
-              <Image
-                src="/25Off.jpeg"
-                width={100}
-                height={100}
-                className={
-                  activeDiscount === 25
-                    ? "activeDiscount discountCoupon"
-                    : "discountCoupon"
-                }
-              />
-              <div
-                onClick={() => {
-                  handle25OffDiscount(totalRawAmount);
-                }}
-                className="couponOverlay"
-              >
-                <span className="couponText">25% off upto 100</span>
-              </div>
-            </div>
-            <div className="discountCouponContainer">
-              <Image
-                src="/50Off.jpeg"
-                width={100}
-                height={100}
-                className={
-                  activeDiscount === 50
-                    ? "activeDiscount discountCoupon"
-                    : "discountCoupon"
-                }
-              />
-              <div
-                onClick={() => {
-                  handle50OffDiscount(totalRawAmount);
-                }}
-                className="couponOverlay"
-              >
-                <span className="couponText">50% off upto 80</span>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
         <div className="checkoutAmount">
           <div className="total">
@@ -167,13 +182,20 @@ const OrderSummary = ({ type }) => {
         </div>
       </div>
       <div className="checkoutSection">
-        <button onClick={handleCheckoutCLick} className="checkoutButton">
-          <span>{totalPayableAmount.toFixed(2)}</span>
-          <span className="buttonCheckout">
-            {type === "checkout" ? "Checkout Now" : "Purchase Now"}
+        {type === "confirmation" ? (
+          <button className="trackButton">
+            Track Order
             <IoMdArrowForward />
-          </span>
-        </button>
+          </button>
+        ) : (
+          <button onClick={handleCheckoutCLick} className="checkoutButton">
+            <span>{totalPayableAmount.toFixed(2)}</span>
+            <span className="buttonCheckout">
+              {type === "checkout" ? "Checkout Now" : "Purchase Now"}
+              <IoMdArrowForward />
+            </span>
+          </button>
+        )}
       </div>
     </div>
   );

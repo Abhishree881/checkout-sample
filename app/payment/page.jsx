@@ -13,18 +13,17 @@ import { updatePaymentType } from "@/lib/features/cart/checkoutReducer";
 import toast, { Toaster } from "react-hot-toast";
 import {
   addCardDetails,
-  addDisable,
   addUpiDetails,
 } from "@/lib/features/payment/paymentReducer";
 
 const Payments = () => {
   const [loading, setLoading] = useState(true);
+  const [check, setCheck] = useState(false);
   const [upiId, setUpiId] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardCvv, setCvv] = useState("");
   const [expiry, setExpiry] = useState("");
   const [name, setName] = useState("");
-  const [disable, setDisable] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const paymentMethods = useAppSelector(
@@ -37,14 +36,27 @@ const Payments = () => {
     (state) => state.checkoutReducer.paymentType
   );
   const reduxUpi = useAppSelector((state) => state.paymentReducer.upiId);
-  const reduxDisable = useAppSelector((state) => state.paymentReducer.disable);
-
-  useEffect(() => {
-    setDisable(reduxDisable);
-  });
+  const reduxCard = useAppSelector((state) => state.paymentReducer.cardNumber);
+  const reduxCvv = useAppSelector((state) => state.paymentReducer.cardCvv);
+  const reduxExpiry = useAppSelector(
+    (state) => state.paymentReducer.expiryDate
+  );
+  const reduxName = useAppSelector((state) => state.paymentReducer.name);
 
   const handlePaymentSelect = (type) => {
     dispatch(updatePaymentType(type));
+    if (type === "UPI") {
+      setCardNumber("");
+      setCvv("");
+      setExpiry("");
+      setName("");
+      // dispatch(
+      //   addCardDetails({ cardNumber: "", cardCvv: "", expiry: "", name: "" })
+      // );
+    } else {
+      setUpiId("");
+      // dispatch(addUpiDetails(""));
+    }
   };
 
   const handleConfirm = () => {
@@ -65,17 +77,12 @@ const Payments = () => {
     } else if (paymentType === "CARDS" && cardCvv.length !== 3) {
       toast.error("CVV should be only 3 digits long");
     } else {
-      setDisable(true);
       if (paymentType === "UPI") {
         dispatch(addUpiDetails(upiId));
-        setCardNumber("");
-        setCvv("");
-        setExpiry("");
-        setName("");
       } else {
         dispatch(addCardDetails({ cardNumber, cardCvv, expiry, name }));
-        setUpiId("");
       }
+      setCheck(true);
       toast.success("Details filled succesfully");
     }
   };
@@ -115,10 +122,10 @@ const Payments = () => {
                   className="paymentsCard"
                   onClick={() => {
                     handlePaymentSelect(item);
-                    if (paymentType !== item) {
-                      setDisable(false);
-                      dispatch(addDisable(false));
-                    }
+                    // if (paymentType !== item) {
+                    //   setDisable(false);
+                    //   dispatch(addDisable(false));
+                    // }
                   }}
                 >
                   <div className="paymentsDetails">
@@ -152,7 +159,6 @@ const Payments = () => {
                           type="text"
                           placeholder="Enter your mobile number / upi id"
                           onChange={(e) => setUpiId(e.target.value)}
-                          disabled={disable}
                           value={reduxUpi ? reduxUpi : upiId}
                         />
                         <button
@@ -160,10 +166,6 @@ const Payments = () => {
                           onClick={(e) => {
                             e.stopPropagation();
                             handleConfirm();
-                          }}
-                          disabled={disable}
-                          style={{
-                            cursor: disable ? "not-allowed" : "pointer",
                           }}
                         >
                           Confirm
@@ -176,42 +178,34 @@ const Payments = () => {
                           type="text"
                           placeholder="Enter your card no."
                           onChange={(e) => setCardNumber(e.target.value)}
-                          disabled={disable}
-                          value={cardNumber}
+                          value={reduxCard ? reduxCard : cardNumber}
                         />
                         <input
                           className="paymentTypeSets"
                           type="text"
                           placeholder="Enter your card cvv"
                           onChange={(e) => setCvv(e.target.value)}
-                          disabled={disable}
-                          value={cardCvv}
+                          value={reduxCvv ? reduxCvv : cardCvv}
                         />
                         <input
                           className="paymentTypeSets"
                           type="date"
                           placeholder="Enter your card expiry"
                           onChange={(e) => setExpiry(e.target.value)}
-                          disabled={disable}
-                          value={expiry}
+                          value={reduxExpiry ? reduxExpiry : expiry}
                         />
                         <input
                           className="paymentTypeSets"
                           type="text"
                           placeholder="Enter cardholder's name"
                           onChange={(e) => setName(e.target.value)}
-                          disabled={disable}
-                          value={name}
+                          value={reduxName ? reduxName : name}
                         />
                         <button
                           className="paymentTypeConfirm"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleConfirm();
-                          }}
-                          disabled={disable}
-                          style={{
-                            cursor: disable ? "not-allowed" : "pointer",
                           }}
                         >
                           Confirm
@@ -224,7 +218,7 @@ const Payments = () => {
           </div>
         </div>
       </div>
-      <OrderSummary type={"purchase"} />
+      <OrderSummary type={"purchase"} check={check} />
     </div>
   );
 };

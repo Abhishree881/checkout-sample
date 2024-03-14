@@ -1,0 +1,102 @@
+.confirmationPage {
+    width: 90vw;
+    height: calc(100vh - 10vw);
+    background-color: white;
+    border-radius: 20px;
+    margin: 5vw auto;
+    padding: 40px;
+    overflow: hidden;
+}
+
+.failedPage {
+    background-image: url('/animations/failed.gif');
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.processingPage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.processingPage>div {
+    background-image: url('/animations/processing.gif');
+    height: 40%;
+    width: 40%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.goBack {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    color: rgb(100, 100, 100);
+    cursor: pointer;
+    padding-bottom: 15px;
+    border-radius: 4px;
+    border-bottom: 1px solid rgb(100, 100, 100, 0.2);
+}
+
+.confirmedPage {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+}
+
+.confirmationSide {
+    width: 70%;
+}
+
+.confirmation {
+    margin: 20px 10px;
+    padding: 25px;
+    height: 80%;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(142, 144, 144, 0.3);
+    /* background-color: rgb(100, 100, 100, 0.2); */
+}
+
+.confirmation>h2 {
+    font-size: 2rem;
+}
+
+.confirmation>p {
+    margin-top: 25px;
+    padding-bottom: 10px;
+    /* border-bottom: 2px solid rgb(100, 100, 100, 0.2); */
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.shippingDetails {
+    margin-top: 15px;
+    font-weight: 500;
+    /* border: 2px solid rgb(100, 100, 100, 0.2); */
+    box-shadow: 0 0 10px rgba(142, 144, 144, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.shippingDetails>h3 {
+    margin-bottom: 10px;
+}
+
+.shippingDetails>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 5px;
+
+}
