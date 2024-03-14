@@ -1,0 +1,109 @@
+.cartCard {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 10px;
+    width: calc(100% - 20px);
+    height: fit-content;
+    gap: 20px;
+    /* background-color: rgb(200, 206, 214, 0.3); */
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(142, 144, 144, 0.3);
+}
+
+.cartItemImageBox {
+    background-color: rgb(200, 206, 214, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+.cartItemImage {
+    background-color: rgb(200, 206, 214, 0.3);
+    mix-blend-mode: multiply;
+    cursor: pointer;
+}
+
+.itemDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.itemInfo {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    gap: 5px;
+}
+
+.itemTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.itemPrice {
+    font-size: 12px;
+}
+
+.titleExpand {
+    margin-left: 2px;
+    cursor: pointer;
+    font-size: 12px;
+    color: rgb(100, 100, 100);
+}
+
+
+.itemInteractions {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-width: 30%;
+}
+
+.itemQuantityChange {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.8rem;
+}
+
+.quantity {
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 5px 9px;
+}
+
+.quantityChange {
+    cursor: pointer;
+    margin-top: 2px;
+    transition: all 0.2s ease;
+}
+
+.quantityChange:hover {
+    color: cornflowerblue;
+}
+
+.deleteItem {
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: gray;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+}
+
+.deleteItem:hover {
+    transform: scale(1.05);
+}

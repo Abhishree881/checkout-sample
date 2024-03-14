@@ -8,6 +8,7 @@ import checkoutReducer, {
 import Image from "next/image";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
+import "@/styles/itemcard.css";
 
 const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
   const [expandedIndices, setExpandedIndices] = useState([]);
@@ -38,7 +39,7 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
   };
 
   return (
-    <div className="cartCard" key={item.id}>
+    <div className="cartCard">
       <div className="cartItemImageBox">
         <Image
           src={item.image}

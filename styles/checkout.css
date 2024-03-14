@@ -3,10 +3,14 @@
     flex-direction: row;
     gap: 20px;
     height: 100%;
+    overflow: hidden;
 }
 
 .cartSide {
     width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .goBack {
@@ -32,11 +36,22 @@
 
 .cartContent {
     margin-top: 25px;
+    height: 80%;
+}
+
+.itemCards {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.itemCards::-webkit-scrollbar {
+    display: none;
 }
 
 .cartCount {
     font-size: 13px;
     margin-top: 3px;
+    padding-bottom: 10px;
     color: rgb(100, 100, 100);
 }
 
@@ -48,248 +63,5 @@
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    gap: 10px;
-}
-
-.cartCard {
-    display: flex;
-    flex-direction: row;
-    margin: 15px 10px;
-    width: calc(100% - 20px);
-    height: 100%;
-    gap: 20px;
-    /* background-color: rgb(200, 206, 214, 0.3); */
-    border-radius: 15px;
-    padding: 15px;
-    box-shadow: 0 0 10px rgba(142, 144, 144, 0.3);
-}
-
-.cartItemImageBox {
-    background-color: rgb(200, 206, 214, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    height: fit-content;
-    border-radius: 10px;
-}
-
-.cartItemImage {
-    background-color: rgb(200, 206, 214, 0.3);
-    mix-blend-mode: multiply;
-    cursor: pointer;
-}
-
-.itemDetails {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 5px;
-}
-
-.itemInfo {
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    gap: 5px;
-}
-
-.itemTitle {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-}
-
-.itemPrice {
-    font-size: 12px;
-}
-
-.titleExpand {
-    margin-left: 2px;
-    cursor: pointer;
-    font-size: 12px;
-    color: rgb(100, 100, 100);
-}
-
-
-.itemInteractions {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    min-width: 30%;
-}
-
-.itemQuantityChange {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 0.8rem;
-}
-
-.quantity {
-    box-shadow: 0 0 5px rgb(0, 0, 0, 0.3);
-    border-radius: 4px;
-    padding: 5px 9px;
-}
-
-.quantityChange {
-    cursor: pointer;
-    margin-top: 2px;
-    transition: all 0.2s ease;
-}
-
-.quantityChange:hover {
-    color: cornflowerblue;
-}
-
-.deleteItem {
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: gray;
-    font-weight: 500;
-    transition: all 0.2s ease;
-
-}
-
-.deleteItem:hover {
-    transform: scale(1.05);
-}
-
-.orderSummary {
-    background-color: #5358b3;
-    height: 100%;
-    width: 30%;
-    border-radius: 20px;
-    padding: 25px;
-    color: white;
-    position: relative;
-}
-
-.coupons {
-    margin-top: 15px;
-}
-
-.couponHeader {
-    font-size: 12px;
-}
-
-.couponOptions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-    margin: 10px auto;
-    flex: 1;
-    gap: 10px;
-    padding-bottom: 20px;
-}
-
-.discountCouponContainer {
-    position: relative;
-}
-
-.discountCoupon {
-    border: 1px solid white;
-    border-radius: 10px;
-    aspect-ratio: 1/1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-size: 13px;
-    cursor: pointer;
-}
-
-/* .discountCouponContainer:hover .discountCoupon {
-    border: 1px solid white;
-} */
-
-.couponOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    border-radius: 10px;
-    display: flex;
-    text-align: center;
-    padding: 5px;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    cursor: pointer;
-}
-
-.discountCouponContainer:hover .couponOverlay {
-    opacity: 1;
-}
-
-.couponText {
-    color: white;
-    font-size: 13px;
-}
-
-.activeDiscount {
-    border: 2px solid rgb(237, 178, 100);
-    box-shadow: 0 0 10px rgb(0, 0, 0, 0.8);
-}
-
-.checkoutAmount {
-    border-top: 1px solid rgba(255, 255, 255, 0.375);
-    padding-top: 20px;
-}
-
-.total, .delivery, .discount, .totalAmount {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-weight: 600;
-    font-size: 14px;
-    margin: 3px 0;
-}
-
-.totalAmount {
-    margin-top: 5px;
-    padding: 5px 0;
-    border-top: 1px dashed rgba(255, 255, 255, 0.375);
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.375);
-}
-
-.checkoutButton {
-    position: absolute;
-    bottom: 25px;
-    width: calc(100% - 50px);
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: white;
-    background-color: #2ebd2e;
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.1s ease-in;
-}
-
-.checkoutButton:hover {
-    transform: scale(1.01);
-}
-
-.buttonCheckout {
-    display: flex;
-    align-items: center;
     gap: 10px;
 }

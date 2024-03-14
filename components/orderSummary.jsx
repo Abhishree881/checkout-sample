@@ -7,6 +7,7 @@ import checkoutReducer, {
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { IoMdArrowForward } from "react-icons/io";
+import "@/styles/ordersummary.css";
 
 const OrderSummary = () => {
   const [activeDiscount, setActiveDiscount] = useState(0);

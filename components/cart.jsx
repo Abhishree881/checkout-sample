@@ -33,7 +33,7 @@ const Cart = () => {
         setLoading(false);
       }
     }
-  }, []);
+  });
 
   const handleFetch = async () => {
     setLoading(true);
@@ -94,16 +94,19 @@ const Cart = () => {
               <spa>Your Basket is Empty!</spa>
             </div>
           ) : (
-            cartProducts.map((item, index) => {
-              return (
-                <ItemCard
-                  item={item}
-                  index={index}
-                  setIsModalOpen={setIsModalOpen}
-                  setSelectedImageSrc={setSelectedImageSrc}
-                />
-              );
-            })
+            <div className="itemCards">
+              {cartProducts.map((item, index) => {
+                return (
+                  <ItemCard
+                    key={item.id}
+                    item={item}
+                    index={index}
+                    setIsModalOpen={setIsModalOpen}
+                    setSelectedImageSrc={setSelectedImageSrc}
+                  />
+                );
+              })}
+            </div>
           )}
         </div>
       </div>
