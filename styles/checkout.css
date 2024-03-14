@@ -177,7 +177,7 @@
     padding-bottom: 20px;
 }
 
-.couponOptions>span {
+.discountCoupon {
     border: 1px dashed white;
     border-radius: 10px;
     width: 100%;
@@ -190,7 +190,11 @@
     cursor: pointer;
 }
 
-.couponOptions>span:hover {
+.discountCoupon:hover {
+    border: 1px solid white;
+}
+
+.activeDiscount {
     border: 1px solid white;
 }
 

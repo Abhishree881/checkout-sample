@@ -7,6 +7,7 @@ import checkoutReducer, {
   increaseQuantity,
   decreaseQuantity,
   removeProduct,
+  updateDiscount,
 } from "@/lib/features/cart/checkoutReducer";
 import Image from "next/image";
 import "@/styles/checkout.css";
@@ -19,6 +20,7 @@ const Cart = () => {
   const isFirstLoad = useRef(true);
   const [loading, setLoading] = useState(true);
   const [expandedIndices, setExpandedIndices] = useState([]);
+  const [activeDiscount, setActiveDiscount] = useState(0);
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector(
     (state) => state.checkoutReducer.cartProducts
@@ -56,7 +58,7 @@ const Cart = () => {
     setLoading(true);
     await fetch(
       `https://groww-intern-assignment.vercel.app/v1/api/order-details`,
-      { cache: "force-cache" } //force-cache
+      { cache: "no-store" } //force-cache
     )
       .then((response) => {
         if (!response.ok) {
@@ -85,6 +87,41 @@ const Cart = () => {
 
   const handleRemoveProduct = (id, price, quantity) => {
     dispatch(removeProduct({ id, price, quantity }));
+  };
+
+  const handle20OffDiscount = (price) => {
+    if (activeDiscount === 20) {
+      setActiveDiscount(0);
+      dispatch(updateDiscount(0));
+    } else {
+      setActiveDiscount(20);
+      const discount = 0.2 * price;
+      dispatch(updateDiscount(discount));
+    }
+  };
+
+  const handle25OffDiscount = (price) => {
+    if (activeDiscount === 25) {
+      setActiveDiscount(0);
+      dispatch(updateDiscount(0));
+    } else {
+      setActiveDiscount(25);
+      let discount = 0.25 * price;
+      if (discount > 100) discount = 100;
+      dispatch(updateDiscount(discount));
+    }
+  };
+
+  const handle50OffDiscount = (price) => {
+    if (activeDiscount === 50) {
+      setActiveDiscount(0);
+      dispatch(updateDiscount(0));
+    } else {
+      setActiveDiscount(50);
+      let discount = 0.5 * price;
+      if (discount > 80) discount = 80;
+      dispatch(updateDiscount(discount));
+    }
   };
 
   return loading ? (
@@ -186,33 +223,68 @@ const Cart = () => {
           <div className="coupons">
             <span className="couponHeader">Coupons</span>
             <div className="couponOptions">
-              <span>20% off</span>
-              <span>50 off</span>
-              <span>50% off upto 80</span>
+              <span
+                className={
+                  activeDiscount === 20
+                    ? "activeDiscount discountCoupon"
+                    : "discountCoupon"
+                }
+                onClick={() => {
+                  handle20OffDiscount(totalRawAmount);
+                }}
+              >
+                20% off
+              </span>
+              <span
+                className={
+                  activeDiscount === 25
+                    ? "activeDiscount discountCoupon"
+                    : " discountCoupon"
+                }
+                onClick={() => {
+                  handle25OffDiscount(totalRawAmount);
+                }}
+              >
+                25% off upto 100
+              </span>
+              <span
+                className={
+                  activeDiscount === 50
+                    ? "activeDiscount discountCoupon"
+                    : "discountCoupon"
+                }
+                onClick={() => {
+                  handle50OffDiscount(totalRawAmount);
+                }}
+              >
+                50% off upto 80
+              </span>
             </div>
           </div>
           <div className="checkoutAmount">
             <div className="total">
               <span>Total Amount:</span>
-              <span>{totalRawAmount}</span>
+              <span>{totalRawAmount.toFixed(2)}</span>
             </div>
             <div className="delivery">
               <span>Delivery Fee:</span>
-              <span>{deliveryCharge}</span>
+              <span>{deliveryCharge.toFixed(2)}</span>
             </div>
             <div className="discount">
               <span>Discount:</span>
-              <span>{discount}</span>
+              <span>{discount.toFixed(2)}</span>
             </div>
             <div className="totalAmount">
               <span className="checkoutTotal">Total</span>
-              <span className="checkoutTotalAmount">{totalPayableAmount}</span>
+              <span className="checkoutTotalAmount">
+                {totalPayableAmount.toFixed(2)}
+              </span>
             </div>
           </div>
         </div>
         <div className="checkoutSection">
           <button className="checkoutButton">
-            <span>{totalPayableAmount}</span>
+            <span>{totalPayableAmount.toFixed(2)}</span>
             <span className="buttonCheckout">
               Checkout Now <IoMdArrowForward />
             </span>
