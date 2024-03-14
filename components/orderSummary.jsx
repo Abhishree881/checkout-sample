@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { IoMdArrowForward } from "react-icons/io";
 import "@/styles/ordersummary.css";
 
-const OrderSummary = () => {
+const OrderSummary = ({ type }) => {
   const [activeDiscount, setActiveDiscount] = useState(0);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -170,7 +170,8 @@ const OrderSummary = () => {
         <button onClick={handleCheckoutCLick} className="checkoutButton">
           <span>{totalPayableAmount.toFixed(2)}</span>
           <span className="buttonCheckout">
-            Checkout Now <IoMdArrowForward />
+            {type === "checkout" ? "Checkout Now" : "Purchase Now"}
+            <IoMdArrowForward />
           </span>
         </button>
       </div>

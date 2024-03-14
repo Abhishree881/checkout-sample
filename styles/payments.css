@@ -1,0 +1,93 @@
+.paymentPage {
+    width: 90vw;
+    height: calc(100vh - 10vw);
+    background-color: white;
+    border-radius: 20px;
+    margin: 5vw auto;
+    padding: 40px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.paymentsContainer {
+    width: 70%;
+}
+
+.paymentsContent {
+    margin-top: 25px;
+    height: 80%;
+}
+
+.paymentsCard {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 10px;
+    width: calc(100% - 20px);
+    height: fit-content;
+    gap: 20px;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(142, 144, 144, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+}
+
+.paymentsDetails {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.paymentsCard:hover {
+    transform: scale(1.01);
+}
+
+.paymentsInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.paymentsIcon {
+    background-color: rgb(200, 206, 214, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+.paymentTypeDetails {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.paymentTypeSets {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.paymentTypeConfirm {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    transition: all 0.2s ease-in;
+    cursor: pointer;
+}
+
+.paymentTypeConfirm:hover {
+    background-color: rgb(92, 134, 212);
+}

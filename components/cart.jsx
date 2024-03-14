@@ -81,7 +81,7 @@ const Cart = () => {
             {cartProducts.length}
             {" item"}
             <>{cartProducts.length !== 1 ? "s" : ""}</>
-            {" in your cart"}
+            {" in your basket"}
           </p>
           {cartProducts.length === 0 ? (
             <div className="emptyCart">
@@ -110,7 +110,7 @@ const Cart = () => {
           )}
         </div>
       </div>
-      <OrderSummary />
+      <OrderSummary type={"checkout"} />
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
