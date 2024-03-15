@@ -28,7 +28,7 @@ const Confirmation = () => {
     }
     if (isFirstLoad.current) {
       // restrict randomness to 1 time per mount
-      const stringsArray = ["Confirmed", "Failed", "Processing"];
+      const stringsArray = ["Confirmed"];
       const randomIndex = Math.floor(Math.random() * stringsArray.length);
       const randomString = stringsArray[randomIndex];
       setRandomResult(randomString);
@@ -41,16 +41,20 @@ const Confirmation = () => {
     <div className="loader" />
   ) : (
     <ThemedApp>
-      <div
-        className={darkTheme ? " darkBg confirmationPage" : "confirmationPage"}
-      >
-        {randomResult === "Failed" ? (
-          <Failed />
-        ) : randomResult === "Processing" ? (
-          <Processing />
-        ) : (
-          <Confirmed />
-        )}
+      <div style={{ width: "100vw", height: "100vh", overflow: "hidden" }}>
+        <div
+          className={
+            darkTheme ? " darkBg confirmationPage" : "confirmationPage"
+          }
+        >
+          {randomResult === "Failed" ? (
+            <Failed />
+          ) : randomResult === "Processing" ? (
+            <Processing />
+          ) : (
+            <Confirmed />
+          )}
+        </div>
       </div>
     </ThemedApp>
   );
