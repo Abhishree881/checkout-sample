@@ -13,9 +13,11 @@
     background-image: url('/animations/failed.gif');
     height: 100%;
     width: 100%;
-    background-size: cover;
+    background-size: 50%;
     background-repeat: no-repeat;
     background-position: center;
+    /* mix-blend-mode: color-burn; */
+    z-index: -1;
 }
 
 .processingPage {
@@ -34,6 +36,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    mix-blend-mode: color-burn;
 }
 
 .goBack {
