@@ -5,6 +5,8 @@ import OrderSummary from "./orderSummary";
 import Link from "next/link";
 import moment from "moment";
 import { useAppSelector } from "@/lib/hooks";
+import Image from "next/image";
+import ThemeToggle from "./themeToggle";
 
 const Confirmed = () => {
   const getFormattedDate = (timestamp) => {
@@ -13,6 +15,8 @@ const Confirmed = () => {
   const merchantLogo = useAppSelector(
     (state) => state.themeReducer.merchantLogo
   );
+  const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
+
   const timestamp = Date.now();
   const currentDate = new Date(timestamp);
   const numberOfDaysToAdd = 4;
@@ -22,8 +26,16 @@ const Confirmed = () => {
   return (
     <div className="confirmedPage">
       <div className="confirmationSide">
+        <div className="topBar">
+          <ThemeToggle />
+        </div>
         <Link href="/" className="goBack">
-          <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
+          <Image
+            src={merchantLogo}
+            alt="Merchant Logo"
+            width={25}
+            height={25}
+          />
           <IoMdArrowBack />
           <span>Continue Shopping</span>
         </Link>

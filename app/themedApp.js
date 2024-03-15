@@ -81,12 +81,13 @@ export default function ThemedApp({ children }) {
   }
   return (
     <div
-      className={styles.main}
       style={{
         "--background": theme["--background"],
         "--foreground": theme["--foreground"],
         "--primary": theme["--primary"],
         "--primary-foreground": theme["--primary-foreground"],
+        width: "100%",
+        height: "100%",
       }}
     >
       {children}

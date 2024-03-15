@@ -28,6 +28,7 @@ const Cart = () => {
   const merchantLogo = useAppSelector(
     (state) => state.themeReducer.merchantLogo
   );
+  const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
 
   useEffect(() => {
     // to call api only once per mount
@@ -77,67 +78,71 @@ const Cart = () => {
   return loading ? (
     <div className="loader"></div>
   ) : (
-    <div className="container">
-      <div className="cacheMethod">
-        <span onClick={handleRefreshClick}>Refresh Cart</span>{" "}
-        {/* Changing cache method */}
-      </div>
-      <Toaster toastOptions={{ duration: 4000 }} />
-      <div className="cartSide">
-        <div className="goBack">
-          <Image
-            src={merchantLogo}
-            alt="Merchant Logo"
-            width={25}
-            height={25}
-          />
-          <IoMdArrowBack />
-          <span>Continue Shopping</span>
-          {/* <ThemeToggle /> */}
+    <div className={darkTheme ? "darkBg main" : "main"}>
+      <div className="container">
+        <div className="topBar">
+          <div className="cacheMethod">
+            <span onClick={handleRefreshClick}>Refresh Cart</span>{" "}
+            {/* Changing cache method */}
+          </div>
+          <ThemeToggle />
         </div>
-        <div className="cartContent">
-          <h1 className="header">Shopping Basket</h1>
-          <p className="cartCount">
-            {"You have "}
-            {cartProducts.length}
-            {" item"}
-            <>{cartProducts.length !== 1 ? "s" : ""}</>
-            {" in your basket"}
-          </p>
-          {cartProducts.length === 0 ? (
-            <div className="emptyCart">
-              <Image
-                width={150}
-                height={150}
-                src="/emptyCart.png"
-                alt="Empty Cart"
-              />
-              <spa>Your Basket is Empty!</spa>
-            </div>
-          ) : (
-            <div className="itemCards">
-              {cartProducts.map((item, index) => {
-                return (
-                  <ItemCard
-                    key={item.id}
-                    item={item}
-                    index={index}
-                    setIsModalOpen={setIsModalOpen}
-                    setSelectedImageSrc={setSelectedImageSrc}
-                  />
-                );
-              })}
-            </div>
-          )}
+        <Toaster toastOptions={{ duration: 4000 }} />
+        <div className="cartSide">
+          <div className="goBack">
+            <Image
+              src={merchantLogo}
+              alt="Merchant Logo"
+              width={25}
+              height={25}
+            />
+            <IoMdArrowBack />
+            <span>Continue Shopping</span>
+          </div>
+          <div className="cartContent">
+            <h1 className="header">Shopping Basket</h1>
+            <p className="cartCount">
+              {"You have "}
+              {cartProducts.length}
+              {" item"}
+              <>{cartProducts.length !== 1 ? "s" : ""}</>
+              {" in your basket"}
+            </p>
+            {cartProducts.length === 0 ? (
+              <div className="emptyCart">
+                <Image
+                  width={150}
+                  height={150}
+                  src="/emptyCart.png"
+                  alt="Empty Cart"
+                />
+                <spa>Your Basket is Empty!</spa>
+              </div>
+            ) : (
+              <div className="itemCards">
+                {cartProducts.map((item, index) => {
+                  return (
+                    <ItemCard
+                      key={item.id}
+                      item={item}
+                      index={index}
+                      setIsModalOpen={setIsModalOpen}
+                      setSelectedImageSrc={setSelectedImageSrc}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </div>
+        <OrderSummary type={"checkout"} />
+        {/* Modal to preview the image of items in the cart */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          imageSrc={selectedImageSrc}
+        />
       </div>
-      <OrderSummary type={"checkout"} />
-      {/* Modal to preview the image of items in the cart */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        imageSrc={selectedImageSrc}
-      />
     </div>
   );
 };

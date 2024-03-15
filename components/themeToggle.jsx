@@ -9,17 +9,20 @@ const ThemeToggle = () => {
   const dispatch = useAppDispatch();
   const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
   return (
-    <FormGroup>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={darkTheme}
-            onClick={() => dispatch(setTheme(!darkTheme))}
-          />
-        }
-        label="Dark Theme"
-      />
-    </FormGroup>
+    <div className="themeToggle">
+      <FormGroup>
+        <FormControlLabel
+          className="themeLable"
+          control={
+            <Switch
+              checked={darkTheme}
+              onClick={() => dispatch(setTheme(!darkTheme))}
+            />
+          }
+          label="Merch Theme"
+        />
+      </FormGroup>
+    </div>
   );
 };
 

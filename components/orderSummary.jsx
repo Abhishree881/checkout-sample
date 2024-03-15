@@ -29,6 +29,7 @@ const OrderSummary = ({ type, check }) => {
   const paymentType = useAppSelector(
     (state) => state.checkoutReducer.paymentType
   );
+  const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
 
   const handle20OffDiscount = (price) => {
     if (activeDiscount === 20) {
@@ -87,7 +88,7 @@ const OrderSummary = ({ type, check }) => {
   };
 
   return (
-    <div className="orderSummary">
+    <div className={darkTheme ? "orderSummary specialBg" : "orderSummary"}>
       <h2>Order Summary</h2>
       <div className="amountSection">
         <div className="coupons">
@@ -192,12 +193,21 @@ const OrderSummary = ({ type, check }) => {
       <div className="checkoutSection">
         {/* if checkout show checkout now else show track order */}
         {type === "confirmation" ? (
-          <button className="trackButton">
+          <button
+            className={
+              darkTheme ? "specialElementBg trackButton" : "trackButton"
+            }
+          >
             Track Order
             <IoMdArrowForward />
           </button>
         ) : (
-          <button onClick={handleCheckoutCLick} className="checkoutButton">
+          <button
+            onClick={handleCheckoutCLick}
+            className={
+              darkTheme ? "checkoutButton specialElementBg" : "checkoutButton"
+            }
+          >
             <span>{totalPayableAmount.toFixed(2)}</span>
             <span className="buttonCheckout">
               {type === "checkout" ? "Checkout Now" : "Purchase Now"}

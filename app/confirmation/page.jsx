@@ -7,6 +7,7 @@ import "@/styles/confirmation.css";
 import Failed from "@/components/failed";
 import Processing from "@/components/processing";
 import Confirmed from "@/components/confirmed";
+import ThemedApp from "../themedApp";
 
 const Confirmation = () => {
   const [randomResult, setRandomResult] = useState(""); // setting random confirmation
@@ -15,6 +16,7 @@ const Confirmation = () => {
   const cartProducts = useAppSelector(
     (state) => state.checkoutReducer.cartProducts
   );
+  const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
 
   useEffect(() => {
     // if cart is empty route back
@@ -33,15 +35,19 @@ const Confirmation = () => {
   return loading ? (
     <div className="loader" />
   ) : (
-    <div className="confirmationPage">
-      {randomResult === "Failed" ? (
-        <Failed />
-      ) : randomResult === "Processing" ? (
-        <Processing />
-      ) : (
-        <Confirmed />
-      )}
-    </div>
+    <ThemedApp>
+      <div
+        className={darkTheme ? " darkBg confirmationPage" : "confirmationPage"}
+      >
+        {randomResult === "Failed" ? (
+          <Failed />
+        ) : randomResult === "Processing" ? (
+          <Processing />
+        ) : (
+          <Confirmed />
+        )}
+      </div>
+    </ThemedApp>
   );
 };
 

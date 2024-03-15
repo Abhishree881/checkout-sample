@@ -1,4 +1,5 @@
 // Home Page with route "/"
+"use-client";
 import styles from "./page.module.css";
 import Cart from "@/components/cart";
 import ThemedApp from "./themedApp";
