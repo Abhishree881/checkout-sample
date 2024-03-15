@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata = {
-  title: "InstaPayments",
+  title: "Insta Payments",
   description: "Generated for Groww by Abhishree",
 };
 

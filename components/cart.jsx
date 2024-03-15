@@ -13,6 +13,7 @@ import Modal from "./modal";
 import OrderSummary from "./orderSummary";
 import { Toaster } from "react-hot-toast";
 import ItemCard from "./itemCard";
+import ThemeToggle from "./themeToggle";
 
 const Cart = () => {
   const isFirstLoad = useRef(true);
@@ -23,6 +24,9 @@ const Cart = () => {
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector(
     (state) => state.checkoutReducer.cartProducts
+  );
+  const merchantLogo = useAppSelector(
+    (state) => state.themeReducer.merchantLogo
   );
 
   useEffect(() => {
@@ -81,8 +85,10 @@ const Cart = () => {
       <Toaster toastOptions={{ duration: 4000 }} />
       <div className="cartSide">
         <div className="goBack">
+          <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
           <IoMdArrowBack />
           <span>Continue Shopping</span>
+          <ThemeToggle />
         </div>
         <div className="cartContent">
           <h1 className="header">Shopping Basket</h1>

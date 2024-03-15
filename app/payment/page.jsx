@@ -36,6 +36,9 @@ const Payments = () => {
   const paymentType = useAppSelector(
     (state) => state.checkoutReducer.paymentType
   );
+  const merchantLogo = useAppSelector(
+    (state) => state.themeReducer.merchantLogo
+  );
   const reduxUpi = useAppSelector((state) => state.paymentReducer.upiId);
   const reduxCard = useAppSelector((state) => state.paymentReducer.cardNumber);
   const reduxCvv = useAppSelector((state) => state.paymentReducer.cardCvv);
@@ -127,6 +130,7 @@ const Payments = () => {
       <Toaster toastOptions={{ duration: 4000 }} />
       <div className="paymentsContainer">
         <Link href="/" className="goBack">
+          <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
           <IoMdArrowBack />
           <span>Shopping Basket</span>
         </Link>

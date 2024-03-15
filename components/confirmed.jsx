@@ -4,11 +4,15 @@ import { IoMdArrowBack } from "react-icons/io";
 import OrderSummary from "./orderSummary";
 import Link from "next/link";
 import moment from "moment";
+import { useAppSelector } from "@/lib/hooks";
 
 const Confirmed = () => {
   const getFormattedDate = (timestamp) => {
     return moment(timestamp).format("DD-MM-YYYY");
   };
+  const merchantLogo = useAppSelector(
+    (state) => state.themeReducer.merchantLogo
+  );
   const timestamp = Date.now();
   const currentDate = new Date(timestamp);
   const numberOfDaysToAdd = 4;
@@ -19,6 +23,7 @@ const Confirmed = () => {
     <div className="confirmedPage">
       <div className="confirmationSide">
         <Link href="/" className="goBack">
+          <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
           <IoMdArrowBack />
           <span>Continue Shopping</span>
         </Link>
