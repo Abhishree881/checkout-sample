@@ -1,3 +1,4 @@
+// modal for viewing image preview of cart items
 import React from "react";
 import "@/styles/modal.css";
 

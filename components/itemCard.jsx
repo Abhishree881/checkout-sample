@@ -1,3 +1,4 @@
+// Item Card for cart items
 import React, { useState } from "react";
 import { useAppDispatch } from "@/lib/hooks";
 import checkoutReducer, {
@@ -12,7 +13,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import "@/styles/itemcard.css";
 
 const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
-  const [expandedIndices, setExpandedIndices] = useState([]);
+  const [expandedIndices, setExpandedIndices] = useState([]); // for list of items that have extended title
   const dispatch = useAppDispatch();
 
   const toggleExpanded = (index) => {
@@ -22,6 +23,8 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
       setExpandedIndices([...expandedIndices, index]);
     }
   };
+
+  // redux functions being triggered using dispatch
   const handleIncreaseQuantity = (id) => {
     dispatch(increaseQuantity({ id }));
   };
@@ -59,6 +62,7 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
           <div>
             {expandedIndices.includes(index) ? (
               <div className="itemTitleExpanded">
+                {/* Items will only be displayed upto 20 chars, and remaining will be displayed on expanding */}
                 {item.title}
                 <span
                   className="titleExpand"
@@ -84,6 +88,7 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
           <span className="itemPrice">{item.price}</span>
         </div>
         <div className="itemInteractions">
+          {/* Change Quantity of items */}
           <div className="itemQuantityChange">
             <div
               onClick={() => handleIncreaseQuantity(item.id)}
@@ -99,6 +104,7 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
               <FiMinus />
             </div>
           </div>
+          {/* Delete Item */}
           <div
             onClick={() =>
               handleRemoveProduct(item.id, item.price, item.quantity)

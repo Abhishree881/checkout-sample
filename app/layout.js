@@ -24,7 +24,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <StoreProvider>{children}</StoreProvider>
+        {/* montserrat font, which next js fetches itself */}
+        <StoreProvider>{children}</StoreProvider> {/*redux store*/}
       </body>
     </html>
   );

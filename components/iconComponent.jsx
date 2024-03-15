@@ -1,3 +1,4 @@
+// retrun correct icon based on the keywords
 import React from "react";
 import { LuPiggyBank } from "react-icons/lu";
 import { CiCreditCard1 } from "react-icons/ci";

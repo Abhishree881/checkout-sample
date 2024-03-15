@@ -2,7 +2,7 @@
 import { Provider } from "react-redux";
 import { makeStore } from "@/lib/store";
 import { useRef } from "react";
-
+// creates new redux store per context
 export default function StoreProvider({ children }) {
   const storeRef = useRef();
   if (!storeRef.current) {

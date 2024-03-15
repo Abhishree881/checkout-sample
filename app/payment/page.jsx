@@ -1,3 +1,4 @@
+// shopping checkout page at route "/payments"
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
@@ -17,8 +18,8 @@ import {
 } from "@/lib/features/payment/paymentReducer";
 
 const Payments = () => {
-  const [loading, setLoading] = useState(true);
-  const [check, setCheck] = useState(false);
+  const [loading, setLoading] = useState(true); // for validating size of cart
+  const [check, setCheck] = useState(false); // for validating selected payment method
   const [upiId, setUpiId] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [cardCvv, setCvv] = useState("");
@@ -46,6 +47,7 @@ const Payments = () => {
   const handlePaymentSelect = (type) => {
     dispatch(updatePaymentType(type));
     if (type === "UPI") {
+      // if upi details are added remove card details
       setCardNumber("");
       setCvv("");
       setExpiry("");
@@ -54,12 +56,14 @@ const Payments = () => {
       //   addCardDetails({ cardNumber: "", cardCvv: "", expiry: "", name: "" })
       // );
     } else {
+      // if card details are added remove upi details
       setUpiId("");
       // dispatch(addUpiDetails(""));
     }
   };
 
   const handleConfirm = () => {
+    // all kinds of vaildation
     if (paymentType === "UPI" && upiId.length === 0) {
       toast.error("Please enter all the details");
     } else if (
@@ -88,6 +92,7 @@ const Payments = () => {
   };
 
   useEffect(() => {
+    // if cart is empty route back
     if (paymentMethods.length === 0) {
       router.push("/");
     } else {

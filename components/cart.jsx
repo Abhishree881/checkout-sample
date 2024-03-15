@@ -1,3 +1,4 @@
+// Shoping Basket
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
@@ -15,16 +16,17 @@ import ItemCard from "./itemCard";
 
 const Cart = () => {
   const isFirstLoad = useRef(true);
-  const [loading, setLoading] = useState(true);
-  const [refresh, setRefresh] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImageSrc, setSelectedImageSrc] = useState("");
+  const [loading, setLoading] = useState(true); // for api load
+  const [refresh, setRefresh] = useState(false); // for cache method
+  const [isModalOpen, setIsModalOpen] = useState(false); //for picture preview
+  const [selectedImageSrc, setSelectedImageSrc] = useState(""); // for picture preview
   const dispatch = useAppDispatch();
   const cartProducts = useAppSelector(
     (state) => state.checkoutReducer.cartProducts
   );
 
   useEffect(() => {
+    // to call api only once per mount
     if (isFirstLoad.current) {
       if (cartProducts.length === 0) {
         handleFetch();
@@ -37,10 +39,9 @@ const Cart = () => {
 
   const handleFetch = async () => {
     setLoading(true);
-    const cacheMethod = refresh ? "no-store" : "force-cache";
     await fetch(
-      `https://groww-intern-assignment.vercel.app/v1/api/order-details`,
-      { cache: cacheMethod }
+      `https://groww-intern-assignment.vercel.app/v1/api/order-details`, // next by default caches the data, using no-store to override caching
+      refresh ? { cache: "no-store" } : { cache: "force-cache" }
     )
       .then((response) => {
         if (!response.ok) {
@@ -49,14 +50,19 @@ const Cart = () => {
         return response.json();
       })
       .then((data) => {
-        dispatch(addCartProducts(data.products));
-        dispatch(addPaymentMethods(data.paymentMethods));
+        dispatch(addCartProducts(data.products)); // adding cart products from api to redux
+        dispatch(addPaymentMethods(data.paymentMethods)); // adding payment methods from api to redux
         setLoading(false);
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
         setLoading(false);
       });
+  };
+
+  const handleRefreshClick = () => {
+    setRefresh(true);
+    handleFetch();
   };
 
   const handleCloseModal = () => {
@@ -68,6 +74,10 @@ const Cart = () => {
     <div className="loader"></div>
   ) : (
     <div className="container">
+      <div className="cacheMethod">
+        <span onClick={handleRefreshClick}>Refresh Cart</span>{" "}
+        {/* Changing cache method */}
+      </div>
       <Toaster toastOptions={{ duration: 4000 }} />
       <div className="cartSide">
         <div className="goBack">
@@ -111,6 +121,7 @@ const Cart = () => {
         </div>
       </div>
       <OrderSummary type={"checkout"} />
+      {/* Modal to preview the image of items in the cart */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

@@ -1,3 +1,4 @@
+// Order summary
 import React, { useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/lib/hooks";
 import Image from "next/image";
@@ -11,7 +12,7 @@ import "@/styles/ordersummary.css";
 import IconComponent from "./iconComponent";
 
 const OrderSummary = ({ type, check }) => {
-  const [activeDiscount, setActiveDiscount] = useState(0);
+  const [activeDiscount, setActiveDiscount] = useState(0); // for active discount
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -31,6 +32,7 @@ const OrderSummary = ({ type, check }) => {
 
   const handle20OffDiscount = (price) => {
     if (activeDiscount === 20) {
+      // if the activeDiscount is same as click then deactivate it
       setActiveDiscount(0);
       dispatch(updateDiscount(0));
     } else {
@@ -42,24 +44,26 @@ const OrderSummary = ({ type, check }) => {
 
   const handle25OffDiscount = (price) => {
     if (activeDiscount === 25) {
+      // if the activeDiscount is same as click then deactivate it
       setActiveDiscount(0);
       dispatch(updateDiscount(0));
     } else {
       setActiveDiscount(25);
       let discount = 0.25 * price;
-      if (discount > 100) discount = 100;
+      if (discount > 100) discount = 100; // discount capped at 100
       dispatch(updateDiscount(discount));
     }
   };
 
   const handle50OffDiscount = (price) => {
     if (activeDiscount === 50) {
+      // if the activeDiscount is same as click then deactivate it
       setActiveDiscount(0);
       dispatch(updateDiscount(0));
     } else {
       setActiveDiscount(50);
       let discount = 0.5 * price;
-      if (discount > 80) discount = 80;
+      if (discount > 80) discount = 80; // discount capped at 80
       dispatch(updateDiscount(discount));
     }
   };
@@ -91,6 +95,7 @@ const OrderSummary = ({ type, check }) => {
             {type === "confirmation" ? "Payment Method" : "Coupons"}
           </span>
           {type === "confirmation" ? (
+            // if checkout show coupons else show payment method
             <div className="paymentMethod">
               <IconComponent keyword={paymentType} />
               <span>{paymentType}</span>
@@ -185,6 +190,7 @@ const OrderSummary = ({ type, check }) => {
         </div>
       </div>
       <div className="checkoutSection">
+        {/* if checkout show checkout now else show track order */}
         {type === "confirmation" ? (
           <button className="trackButton">
             Track Order

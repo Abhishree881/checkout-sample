@@ -1,3 +1,4 @@
+// payment failed
 import React from "react";
 import Link from "next/link";
 import { IoMdArrowBack } from "react-icons/io";
