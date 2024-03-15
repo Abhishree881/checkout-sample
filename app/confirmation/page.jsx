@@ -16,16 +16,15 @@ const Confirmation = () => {
   );
 
   useEffect(() => {
-    // if (cartProducts.length === 0) {
-    //   router.push("/");
-    // } else {
-    //   setLoading(false);
-    // }
-    setLoading(false);
+    if (cartProducts.length === 0) {
+      router.push("/");
+    } else {
+      setLoading(false);
+    }
     const stringsArray = ["Failed", "Processing", "Confirmed"];
     const randomIndex = Math.floor(Math.random() * stringsArray.length);
     const randomString = stringsArray[randomIndex];
-    setRandomResult("Confirmed");
+    setRandomResult(randomString);
   });
 
   return loading ? (

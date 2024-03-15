@@ -92,3 +92,43 @@
 .paymentTypeConfirm:hover {
     background-color: rgb(92, 134, 212);
 }
+
+@media (max-width:1100px) {
+    .paymentPage {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+    }
+}
+
+@media (max-width:900px) {
+    .paymentPage {
+        flex-direction: column;
+    }
+
+    .paymentsContainer {
+        width: 95%;
+        margin: auto;
+    }
+}
+
+@media (max-width:600px) {
+    .paymentTypeSets {
+        width: 95%;
+        margin: 5px auto;
+    }
+
+    .paymentTypeConfirm {
+        width: 95%;
+        margin: 5px auto;
+    }
+
+    .paymentPage {
+        padding: 10px;
+    }
+
+    .paymentsContainer {
+        width: 100%;
+        padding: 10px;
+    }
+}

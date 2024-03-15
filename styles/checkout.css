@@ -65,3 +65,32 @@
     font-weight: 600;
     gap: 10px;
 }
+
+@media (max-width:1400px) {
+    .cartSide {
+        width: 60%;
+    }
+}
+
+@media (max-width:900px) {
+    .container {
+        flex-direction: column;
+        overflow-y: scroll;
+    }
+
+    .container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .cartSide {
+        width: 95%;
+        margin: auto;
+    }
+}
+
+@media (max-width:600px) {
+    .cartSide {
+        width: 100%;
+        padding: 10px;
+    }
+}

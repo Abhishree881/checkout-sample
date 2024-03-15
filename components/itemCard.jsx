@@ -8,6 +8,7 @@ import checkoutReducer, {
 import Image from "next/image";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
+import { IoTrashBinOutline } from "react-icons/io5";
 import "@/styles/itemcard.css";
 
 const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
@@ -68,15 +69,15 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
               </div>
             ) : (
               <div className="itemTitle">
-                {item.title.slice(0, 25)}
-                {item.title.length > 15 && (
+                {item.title.slice(0, 20)}
+                {item.title.length > 20 ? (
                   <span
                     className="titleExpand"
                     onClick={() => toggleExpanded(index)}
                   >
                     {"... show more"}
                   </span>
-                )}
+                ) : null}
               </div>
             )}
           </div>
@@ -104,7 +105,7 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
             }
             className="deleteItem"
           >
-            Remove Item
+            <IoTrashBinOutline />
           </div>
         </div>
       </div>

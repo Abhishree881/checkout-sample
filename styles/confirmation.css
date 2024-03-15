@@ -98,5 +98,56 @@
     justify-content: space-between;
     flex-direction: row;
     margin: 5px;
+}
 
+@media (max-width:1100px) {
+    .confirmationPage {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+    }
+}
+
+@media (max-width:900px) {
+    .confirmedPage {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .confirmationSide {
+        width: 95%;
+        margin: auto;
+    }
+
+    .confirmation {
+        height: fit-content;
+    }
+
+    .processingPage {
+        font-size: 1rem;
+    }
+
+    .processingPage>div {
+        width: 150px;
+        height: 150px;
+        background-size: 200%;
+    }
+
+    .failedPage {
+        background-size: 100%;
+    }
+}
+
+@media (max-width:600px) {
+    .confirmationSide {
+        width: 100%;
+    }
+
+    .confirmationPage {
+        padding: 10px;
+    }
+
+    .goBack {
+        margin: 10px;
+    }
 }
