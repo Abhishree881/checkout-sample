@@ -100,6 +100,7 @@ const OrderSummary = ({ type, check }) => {
               <div className="discountCouponContainer">
                 <Image
                   src="/20Off.jpeg"
+                  alt="Coupon Image"
                   width={100}
                   height={100}
                   className={
@@ -120,6 +121,7 @@ const OrderSummary = ({ type, check }) => {
               <div className="discountCouponContainer">
                 <Image
                   src="/25Off.jpeg"
+                  alt="Coupon Image"
                   width={100}
                   height={100}
                   className={
@@ -140,6 +142,7 @@ const OrderSummary = ({ type, check }) => {
               <div className="discountCouponContainer">
                 <Image
                   src="/50Off.jpeg"
+                  alt="Coupon Image"
                   width={100}
                   height={100}
                   className={
