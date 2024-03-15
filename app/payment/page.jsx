@@ -44,6 +44,26 @@ const Payments = () => {
   );
   const reduxName = useAppSelector((state) => state.paymentReducer.name);
 
+  useEffect(() => {
+    if (reduxUpi) {
+      setUpiId(reduxUpi);
+      setCheck(true);
+    }
+    if (reduxCard) {
+      setCardNumber(reduxCard);
+      if (reduxCvv) {
+        setCvv(reduxCvv);
+        if (reduxExpiry) {
+          setExpiry(reduxExpiry);
+          if (reduxName) {
+            setName(reduxName);
+            setCheck(true);
+          }
+        }
+      }
+    }
+  });
+
   const handlePaymentSelect = (type) => {
     dispatch(updatePaymentType(type));
     if (type === "UPI") {
@@ -164,7 +184,7 @@ const Payments = () => {
                           type="text"
                           placeholder="Enter your mobile number / upi id"
                           onChange={(e) => setUpiId(e.target.value)}
-                          value={reduxUpi ? reduxUpi : upiId}
+                          value={upiId}
                         />
                         <button
                           className="paymentTypeConfirm"
@@ -183,21 +203,21 @@ const Payments = () => {
                           type="text"
                           placeholder="Enter your card no."
                           onChange={(e) => setCardNumber(e.target.value)}
-                          value={reduxCard ? reduxCard : cardNumber}
+                          value={cardNumber}
                         />
                         <input
                           className="paymentTypeSets"
                           type="text"
                           placeholder="Enter your card cvv"
                           onChange={(e) => setCvv(e.target.value)}
-                          value={reduxCvv ? reduxCvv : cardCvv}
+                          value={cardCvv}
                         />
                         <input
                           className="paymentTypeSets"
                           type="text"
                           placeholder="Enter cardholder's name"
                           onChange={(e) => setName(e.target.value)}
-                          value={reduxName ? reduxName : name}
+                          value={name}
                         />
                         <label className="paymentTypeSetsLabel" for="id">
                           Enter your card&apos;s expiry date
@@ -208,7 +228,7 @@ const Payments = () => {
                           id="date"
                           placeholder="Enter your card expiry date"
                           onChange={(e) => setExpiry(e.target.value)}
-                          value={reduxExpiry ? reduxExpiry : expiry}
+                          value={expiry}
                         />
                         <button
                           className="paymentTypeConfirm"

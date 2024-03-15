@@ -23,7 +23,7 @@ const Confirmation = () => {
     } else {
       setLoading(false);
     }
-    const stringsArray = ["Failed", "Processing", "Confirmed"];
+    const stringsArray = ["Confirmed", "Failed", "Processing"];
     const randomIndex = Math.floor(Math.random() * stringsArray.length);
     const randomString = stringsArray[randomIndex];
     setRandomResult(randomString);

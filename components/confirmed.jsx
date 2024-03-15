@@ -34,7 +34,7 @@ const Confirmed = () => {
             <h3>Order Details</h3>
             <div>
               <span>Address: </span>
-              <span>ABC Tower, XYZ Road, Groww City</span>
+              <span>ABC Tower, Groww City</span>
             </div>
             <div>
               <span>Delivery Date: </span>
