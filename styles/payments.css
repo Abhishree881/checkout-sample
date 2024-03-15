@@ -110,12 +110,17 @@
         height: 100vh;
         margin: 0;
         overflow-y: scroll;
+        border-radius: 0;
     }
 }
 
 @media (max-width:900px) {
     .paymentPage {
         flex-direction: column;
+    }
+
+    .paymentPage>.themeToggle {
+        margin-bottom: 10px;
     }
 
     .paymentsContainer {

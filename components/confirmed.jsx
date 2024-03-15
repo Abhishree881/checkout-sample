@@ -27,18 +27,18 @@ const Confirmed = () => {
     <div className="confirmedPage">
       <div className="confirmationSide">
         <div className="topBar">
+          <Link href="/" className="goBack">
+            <Image
+              src={merchantLogo}
+              alt="Merchant Logo"
+              width={25}
+              height={25}
+            />
+            <IoMdArrowBack />
+            <span>Continue Shopping</span>
+          </Link>
           <ThemeToggle />
         </div>
-        <Link href="/" className="goBack">
-          <Image
-            src={merchantLogo}
-            alt="Merchant Logo"
-            width={25}
-            height={25}
-          />
-          <IoMdArrowBack />
-          <span>Continue Shopping</span>
-        </Link>
         <div className="confirmation">
           <h2>Thank You for Shopping with Us!</h2>
           <p>

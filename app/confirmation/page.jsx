@@ -1,6 +1,6 @@
 // Shopping confirmation page at route "/confirmation"
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { useRouter } from "next/navigation";
 import "@/styles/confirmation.css";
@@ -10,6 +10,7 @@ import Confirmed from "@/components/confirmed";
 import ThemedApp from "../themedApp";
 
 const Confirmation = () => {
+  const isFirstLoad = useRef(true);
   const [randomResult, setRandomResult] = useState(""); // setting random confirmation
   const [loading, setLoading] = useState(true); // checking cart state
   const router = useRouter();
@@ -25,11 +26,15 @@ const Confirmation = () => {
     } else {
       setLoading(false);
     }
-    const stringsArray = ["Confirmed", "Failed", "Processing"];
-    const randomIndex = Math.floor(Math.random() * stringsArray.length);
-    const randomString = stringsArray[randomIndex];
-    setRandomResult(randomString);
-    // setting random confirmation
+    if (isFirstLoad.current) {
+      // restrict randomness to 1 time per mount
+      const stringsArray = ["Confirmed", "Failed", "Processing"];
+      const randomIndex = Math.floor(Math.random() * stringsArray.length);
+      const randomString = stringsArray[randomIndex];
+      setRandomResult(randomString);
+      // setting random confirmation
+      isFirstLoad.current = false;
+    }
   });
 
   return loading ? (

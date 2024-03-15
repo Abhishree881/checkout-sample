@@ -135,18 +135,19 @@ const Payments = () => {
         <Toaster toastOptions={{ duration: 4000 }} />
         <div className="paymentsContainer">
           <div className="topBar">
+            <Link href="/" className="goBack">
+              <Image
+                src={merchantLogo}
+                alt="Merchant Logo"
+                width={25}
+                height={25}
+              />
+              <IoMdArrowBack />
+              <span>Shopping Basket</span>
+            </Link>
             <ThemeToggle />
           </div>
-          <Link href="/" className="goBack">
-            <Image
-              src={merchantLogo}
-              alt="Merchant Logo"
-              width={25}
-              height={25}
-            />
-            <IoMdArrowBack />
-            <span>Shopping Basket</span>
-          </Link>
+
           <div className="paymentsContent">
             <h1 className="header">Shopping Checkout</h1>
             <p className="cartCount">

@@ -7,7 +7,7 @@
     border-radius: 20px;
     padding: 35px;
     box-shadow: 0 0 5px rgba(142, 144, 144, 0.3);
-    transition: all 0.5s ease;
+    transition: background-color 0.5s ease;
 }
 
 .main::-webkit-scrollbar {
@@ -19,6 +19,7 @@
         width: 100vw;
         height: 100vh;
         margin: 0;
+        border-radius: 0;
         /* background-color: rgb(200, 206, 214, 0.3); */
     }
 }
