@@ -1,13 +1,14 @@
 import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
+import Link from "next/link";
 
 const Processing = () => {
   return (
     <>
-      <div className="goBack">
+      <Link href="/" className="goBack">
         <IoMdArrowBack />
         <span>Continue Shopping</span>
-      </div>
+      </Link>
       <div className="processingPage">
         Processing Payment...
         <div />

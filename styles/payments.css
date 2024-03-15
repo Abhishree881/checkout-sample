@@ -77,6 +77,16 @@
     border: 1px solid gray;
 }
 
+.paymentTypeSetsLabel {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 0;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-size: 10px;
+    display: none;
+}
+
 .paymentTypeConfirm {
     width: calc(50% - 10px);
     margin-bottom: 20px;
@@ -130,5 +140,9 @@
     .paymentsContainer {
         width: 100%;
         padding: 10px;
+    }
+
+    .paymentTypeSetsLabel {
+        display: block;
     }
 }

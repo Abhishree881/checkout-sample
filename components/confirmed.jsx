@@ -1,6 +1,7 @@
 import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import OrderSummary from "./orderSummary";
+import Link from "next/link";
 import moment from "moment";
 
 const Confirmed = () => {
@@ -16,10 +17,10 @@ const Confirmed = () => {
   return (
     <div className="confirmedPage">
       <div className="confirmationSide">
-        <div className="goBack">
+        <Link href="/" className="goBack">
           <IoMdArrowBack />
           <span>Continue Shopping</span>
-        </div>
+        </Link>
         <div className="confirmation">
           <h2>Thank You for Shopping with Us!</h2>
           <p>

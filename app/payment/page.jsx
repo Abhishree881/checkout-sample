@@ -189,17 +189,21 @@ const Payments = () => {
                         />
                         <input
                           className="paymentTypeSets"
-                          type="date"
-                          placeholder="Enter your card expiry"
-                          onChange={(e) => setExpiry(e.target.value)}
-                          value={reduxExpiry ? reduxExpiry : expiry}
-                        />
-                        <input
-                          className="paymentTypeSets"
                           type="text"
                           placeholder="Enter cardholder's name"
                           onChange={(e) => setName(e.target.value)}
                           value={reduxName ? reduxName : name}
+                        />
+                        <label className="paymentTypeSetsLabel" for="id">
+                          Enter your card's expiry date
+                        </label>
+                        <input
+                          className="paymentTypeSets"
+                          type="date"
+                          id="date"
+                          placeholder="Enter your card expiry date"
+                          onChange={(e) => setExpiry(e.target.value)}
+                          value={reduxExpiry ? reduxExpiry : expiry}
                         />
                         <button
                           className="paymentTypeConfirm"
