@@ -195,7 +195,7 @@ const Payments = () => {
                           value={reduxName ? reduxName : name}
                         />
                         <label className="paymentTypeSetsLabel" for="id">
-                          Enter your card's expiry date
+                          Enter your card&apos;s expiry date
                         </label>
                         <input
                           className="paymentTypeSets"
