@@ -85,7 +85,12 @@ const Cart = () => {
       <Toaster toastOptions={{ duration: 4000 }} />
       <div className="cartSide">
         <div className="goBack">
-          <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
+          <Image
+            src={merchantLogo}
+            alt="Merchant Logo"
+            width={25}
+            height={25}
+          />
           <IoMdArrowBack />
           <span>Continue Shopping</span>
           {/* <ThemeToggle /> */}

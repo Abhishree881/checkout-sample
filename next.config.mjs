@@ -8,6 +8,12 @@ const nextConfig = {
         port: "",
         pathname: "/img/*",
       },
+      {
+        protocol: "https",
+        hostname: "groww.in",
+        port: "",
+        pathname: "/*",
+      },
     ],
   },
 };

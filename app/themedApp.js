@@ -47,7 +47,10 @@ export default function ThemedApp({ children }) {
     const fetchTheme = async () => {
       try {
         const response = await fetch(
-          "https://groww-intern-assignment.vercel.app/v1/api/merchant-metadata"
+          "https://groww-intern-assignment.vercel.app/v1/api/merchant-metadata",
+          {
+            cache: "force-cache",
+          }
         );
         const data = await response.json();
         dispatch(addTheme(data.theme));
