@@ -14,7 +14,7 @@ const ThemeToggle = () => {
         checked={darkTheme}
         onClick={() => dispatch(setTheme(!darkTheme))}
       />
-      <span className="themeToggleSpan">Merch Theme</span>
+      <span className="themeToggleSpan">Merchant Theme</span>
     </div>
   );
 };
