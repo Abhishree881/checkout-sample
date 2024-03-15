@@ -33,7 +33,7 @@
 .container {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 0px;
     height: 100%;
     overflow: hidden;
 }

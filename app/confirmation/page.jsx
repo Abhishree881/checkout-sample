@@ -28,7 +28,7 @@ const Confirmation = () => {
     }
     if (isFirstLoad.current) {
       // restrict randomness to 1 time per mount
-      const stringsArray = ["Confirmed"];
+      const stringsArray = ["Confirmed", "Failed", "Processing"];
       const randomIndex = Math.floor(Math.random() * stringsArray.length);
       const randomString = stringsArray[randomIndex];
       setRandomResult(randomString);
