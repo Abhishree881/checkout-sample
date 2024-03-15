@@ -123,9 +123,7 @@
         width: 100%;
         padding: 10px;
     }
-}
 
-@media (max-width:350px) {
     .cacheMethod {
         margin-bottom: -25px;
     }
