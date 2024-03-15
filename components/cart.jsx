@@ -88,7 +88,7 @@ const Cart = () => {
           <img src={merchantLogo} alt="Merchant Logo" width={25} height={25} />
           <IoMdArrowBack />
           <span>Continue Shopping</span>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
         <div className="cartContent">
           <h1 className="header">Shopping Basket</h1>
