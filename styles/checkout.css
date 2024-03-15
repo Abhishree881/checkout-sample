@@ -94,6 +94,10 @@
 }
 
 @media (max-width:900px) {
+    .cacheMethod {
+        display: block;
+    }
+
     .container {
         flex-direction: column;
         overflow-y: scroll;
