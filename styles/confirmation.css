@@ -36,7 +36,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    mix-blend-mode: color-burn;
+    mix-blend-mode: multiply;
 }
 
 .goBack {
@@ -123,8 +123,16 @@
         height: fit-content;
     }
 
-    .confirmedPage>.themeToggle {
-        margin-bottom: 10px;
+    .confirmationSide>.themeToggle {
+        margin-bottom: 10px !important;
+    }
+
+    .confirmationSide>.topBar>.goBack {
+        border: none !important;
+    }
+
+    .confirmationSide>.topBar {
+        border-bottom: 1px solid rgb(100, 100, 100, 0.2) !important;
     }
 
     .confirmationSide {

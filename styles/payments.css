@@ -119,8 +119,16 @@
         flex-direction: column;
     }
 
-    .paymentPage>.themeToggle {
-        margin-bottom: 10px;
+    .paymentsContainer>.themeToggle {
+        margin-bottom: 10px !important;
+    }
+
+    .paymentsContainer>.topBar>.goBack {
+        border: none !important;
+    }
+
+    .paymentsContainer>.topBar {
+        border-bottom: 1px solid rgb(100, 100, 100, 0.2) !important;
     }
 
     .paymentsContainer {
