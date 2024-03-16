@@ -27,6 +27,10 @@
     cursor: pointer;
 }
 
+.specialBgImage {
+    background-color: rgb(240, 220, 220);
+}
+
 .itemDetails {
     width: 100%;
     display: flex;

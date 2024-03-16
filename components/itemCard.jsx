@@ -1,6 +1,6 @@
 // Item Card for cart items
 import React, { useState } from "react";
-import { useAppDispatch } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import checkoutReducer, {
   increaseQuantity,
   decreaseQuantity,
@@ -15,6 +15,7 @@ import "@/styles/itemcard.css";
 const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
   const [expandedIndices, setExpandedIndices] = useState([]); // for list of items that have extended title
   const dispatch = useAppDispatch();
+  const darkTheme = useAppSelector((state) => state.themeReducer.darkTheme);
 
   const toggleExpanded = (index) => {
     if (expandedIndices.includes(index)) {
@@ -44,11 +45,17 @@ const ItemCard = ({ item, setIsModalOpen, setSelectedImageSrc, index }) => {
 
   return (
     <div className="cartCard">
-      <div className="cartItemImageBox">
+      <div
+        className={
+          darkTheme ? "cartItemImageBox specialBgImage" : "cartItemImageBox"
+        }
+      >
         <Image
           src={item.image}
           alt={item.title}
-          className="cartItemImage"
+          className={
+            darkTheme ? "cartItemImage specialBgImage " : "cartItemImage"
+          }
           width={60}
           height={50}
           placeholder="blur"
